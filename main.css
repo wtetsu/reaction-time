@@ -1,0 +1,66 @@
+#main {
+  margin-left: 40px;
+  text-align: center;
+}
+
+.colorbox {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 900px;
+  bottom: 400px;
+}
+.layout {
+  /* display: inline-block; */
+  width: 800px;
+}
+.layout2 {
+  /* display: inline; */
+}
+
+.inactive {
+  background-color:black;
+}
+.waiting {
+  /* background-color:gray; */
+  cursor: pointer;
+}
+.active {
+  background-color:yellow;
+  cursor: pointer;
+}
+.finished {
+  /* background-color:gray; */
+}
+.error {
+  background-color:red;
+}
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateY(-30px) scale(4);
+}
+
+.ope-button {
+  width: 400px;
+  height: 100px;
+  font-size: 50px;
+}
+
+.displayNone {
+  display: none;
+}
+
+.ranking {
+  /* background-color:blue; */
+  /* width:200px; */
+  /* height:200px; */
+  display:inline-block;
+}
+
