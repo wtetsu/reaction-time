@@ -1,12 +1,3 @@
-/*global require, Audio*/
-/*jslint indent:2, white:true, vars:true, nomen:true, browser:true, sloppy:true, plusplus:true*/
-
-//import Vue from 'vue/dist/vue.common.js';
-// import VueMaterial from 'vue-material';
-// import 'vue-material/dist/vue-material.css';
-// import css from './main.css';
-//import VueMaterial from 'vue-material';
-
 var Vue = require('vue/dist/vue.common.js');
 var VueMaterial = require('vue-material');
 require('vue-material/dist/vue-material.css');
@@ -166,31 +157,3 @@ var reacted = function() {
 document.getElementById("btnReact").addEventListener('mousedown', function(){
   reacted();
 });
-
-// var $ = require('jquery');
-
-// $("#demo").css({backgroundColor:"black",width:100, height:100});
-// //$("#demo").animate({width:1000, height:100});
-// //$("#demo").animate({width:1000, height:100, backgroundColor:"black"});
-
-// var startTime = 0;
-
-// setTimeout(function(){
-  // startTime = (new Date()).getTime();
-  // $("#demo").css({backgroundColor:"blue"});
-// }, 2000);
-
-// $("#demo").click(function(){
-  // var finishTime = (new Date()).getTime();
-
-  // var t = (finishTime - startTime);
-  // var txt = t.toString() + ":" + (60 * t / 1000).toString();
-  // $("#demo").text(txt);
-// });
-
-// $("#retry").click(function(){
-
-// });
-
-
-
