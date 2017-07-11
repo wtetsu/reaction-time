@@ -11,18 +11,15 @@
   bottom: 400px;
 }
 .layout {
-  /* display: inline-block; */
   width: 800px;
 }
 .layout2 {
-  /* display: inline; */
 }
 
 .inactive {
   background-color:black;
 }
 .waiting {
-  /* background-color:gray; */
   cursor: pointer;
 }
 .active {
@@ -30,7 +27,6 @@
   cursor: pointer;
 }
 .finished {
-  /* background-color:gray; */
 }
 .error {
   background-color:red;
@@ -58,9 +54,6 @@
 }
 
 .ranking {
-  /* background-color:blue; */
-  /* width:200px; */
-  /* height:200px; */
   display:inline-block;
 }
 
