@@ -4,13 +4,9 @@ require('vue-material/dist/vue-material.css');
 require('./main.css');
 Vue.use(VueMaterial);
 
-var soundFile;
-if (window.navigator.userAgent.toLowerCase().indexOf('trident') >= 0) {
-  soundFile = 'se_maoudamashii_system41.mp3';
-} else {
-  soundFile = 'se_maoudamashii_system41.wav';
-}
-var se = new Audio(soundFile);
+const res = require('./resources.js');
+
+var se = new Audio(res.sound);
 var box = null;
 
 var data = {
@@ -96,12 +92,6 @@ new Vue({
     },
     closeDialog: function(ref) {
       this.$refs[ref].close();
-    },
-    onOpen: function() {
-      console.log('Opened');
-    },
-    onClose: function(type) {
-      console.log('Closed', type);
     }
   }
 });
@@ -122,7 +112,9 @@ var addResult = function(newResult) {
   }
 };
 
-// Vueでさばくと時間計測アプリとしては致命的にオーバーヘッドがあるので、計測終了は生イベントで処理することにした
+// Note:
+// Vue's event handling is slow for reaction time measurement,
+// so raw JavaScript event is needed here.
 var reacted = function() {
   var finishTime = (new Date()).getTime();
   if (data.isFinished) {
@@ -140,7 +132,7 @@ var reacted = function() {
       frame: frame
     };
   } else {
-    data.result = 'フライングです。';
+    data.result = res.flying;
     newResult = {
       isFlying:true
     };
