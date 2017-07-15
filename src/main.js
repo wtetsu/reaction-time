@@ -18,7 +18,6 @@ var data = {
   isActive: false,
   isError: false,
   isWaiting: false,
-  message: 'Hello Vue!',
   result: '...',
   resultListColor: [
     { time: 9999, frame: 599940, isFlying: false },
