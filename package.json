@@ -20,7 +20,5 @@
   "scripts": {
     "lint": "eslint src"
   },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "license": "MIT"
 }
