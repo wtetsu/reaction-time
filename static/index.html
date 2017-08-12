@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>簡易反応速度計測ツール</title>
+  </head>
+  <body>
+    <div id="app">
+      <md-toolbar>
+        <h1 class="md-title">簡易反応速度計測ツール</h1>
+      </md-toolbar>
+
+      <div id="main">
+        <md-button class="md-raised" v-on:click.native="showModal">これはなに？</md-button>
+
+        <div>
+          <strong><span>計測タイプの選択&nbsp;&nbsp;&nbsp;</span></strong>
+          <label><md-radio v-model="measurementType" name="measurementType" md-value="color" :disabled="isFinished ? false : true"></md-radio>視覚で反応</label>
+          <label><md-radio v-model="measurementType" name="measurementType" md-value="sound" :disabled="isFinished ? false : true"></md-radio>聴覚で反応</label>
+        </div>
+
+        <br/>
+
+        <md-button class="md-raised md-primary ope-button" v-on:click.native="retry" :disabled="(isFinished) ? false : true">計測開始</md-button>
+
+        <br/>
+        <br/>
+
+        <p id="box" v-bind:class="[measurementType!=='color' ? 'displayNone' : '']">ここの色が変わったら下のボタンを押してね</p>
+        <p v-if="measurementType=='sound'">音が聞こえたら下のボタンを押してね<img width="20" height="20" src="device-volume-loudspeaker-speaker-down-glyph.png"/></p>
+        <md-button id="btnReact" class="md-raised ope-button md-primary" :disabled="isFinished ? true : false">！反応！</md-button>
+
+        <br/>
+
+        <p>{{ result }}</p>
+
+        <div>
+          <div class="ranking">
+            <h3>視覚(直近5件)</h3>
+            <ol>
+              <transition-group name="list" tag="p">
+              <li v-for="result in resultListColor" v-bind:key="result" >
+                <p v-if="!result.isFlying">{{result.time}} ms ({{result.frame}}f)</p>
+                <p v-else>フライング!</p>
+              </li>
+              </transition-group>
+            </ol>
+          </div>
+          <div class="ranking">
+            <h3>聴覚(直近5件)</h3>
+            <ol>
+              <transition-group name="list" tag="p">
+              <li v-for="result in resultListSound" v-bind:key="result" >
+                <p v-if="!result.isFlying">{{result.time}} ms ({{result.frame}}f)</p>
+                <p v-else>フライング!</p>
+              </li>
+              </transition-group>
+            </ol>
+          </div>
+        </div>
+
+        <md-dialog md-open-from="#custom" md-close-to="#custom" ref="dialog1">
+          <md-dialog-title>このツールについて</md-dialog-title>
+
+          <md-dialog-content>
+            反応速度を雑に計測するツールです。<br/>
+            <br/>
+            色または音に反応してボタンを押すまでの時間を、フレーム数(1秒=60Fとしたときの数値)に変換して表示します。<br/>
+            <br/>
+            人間が反応で何らかのアクションを起こすまでの時間は、視覚刺激からより聴覚刺激からの方が短い[要出典]らしいので、実際に計測してみるために作ったものです。<br/>
+            <br/>
+            <strong>注意！</strong><br/>
+            このツールで出した数値は、あくまで適当な参考値に過ぎません。<br/>
+            測定は、ブラウザのタイマー精度やディスプレイの反応速度などの環境に少なからず影響を受けるためです。<br/>
+            出た数値はあまり真に受けないよう、お願い致します。<br/>
+            <br/>
+            また、PCブラウザ向けなので、スマートフォン等ではうまく動かないと思われます。
+            <br/>
+            <br/>
+            開発に使用させていただいたもの
+            <md-table v-once>
+              <md-table-body>
+                <md-table-row>
+                  <md-table-cell><a href="https://vuejs.org/" target="_blank">Vue.js</a></md-table-cell>
+                  <md-table-cell>MIT License</md-table-cell>
+                </md-table-row>
+                <md-table-row>
+                  <md-table-cell><a href="https://github.com/marcosmoura/vue-material" target="_blank">Vue Material</a></md-table-cell>
+                  <md-table-cell>MIT License</md-table-cell>
+                </md-table-row>
+                <md-table-row>
+                  <md-table-cell><a href="https://webpack.github.io/" target="_blank">webpack</a></md-table-cell>
+                  <md-table-cell>MIT License</md-table-cell>
+                </md-table-row>
+                <md-table-row>
+                  <md-table-cell><a href="http://maoudamashii.jokersounds.com/" target="_blank">魔王魂</a></md-table-cell>
+                  <md-table-cell></md-table-cell>
+                </md-table-row>
+              </md-table-body>
+            </md-table>
+          </md-dialog-content>
+
+          <md-dialog-actions>
+            <md-button class="md-primary" @click.native="closeDialog('dialog1')">Ok</md-button>
+          </md-dialog-actions>
+        </md-dialog>
+      </div><!--main-->
+    </div><!--app-->
+
+    <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
+  </body>
+</html>
