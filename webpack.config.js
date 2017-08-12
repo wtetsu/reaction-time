@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: "./src/main.js",
@@ -16,6 +17,9 @@ module.exports = {
       'process.env': {
         NODE_ENV: '"production"'
       }
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: 'static' }
+    ])
   ]
 };

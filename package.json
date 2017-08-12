@@ -7,6 +7,7 @@
     "vue-material": "^0.7.1"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
     "eslint": "^4.2.0",
     "eslint-config-standard": "^10.2.1",
@@ -18,7 +19,9 @@
     "webpack": "^3.2.0"
   },
   "scripts": {
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "license": "MIT"
 }
