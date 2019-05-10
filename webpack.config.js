@@ -1,7 +1,7 @@
-var webpack = require("webpack");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
+  mode: process.env.NODE_ENV || "development",
   entry: "./src/main.js",
   output: {
     path: __dirname + "/dist",
@@ -9,6 +9,12 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
       {
         test: /\.css$/,
         use: [
@@ -22,12 +28,9 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new CopyWebpackPlugin([{ from: "static" }])
-  ]
+  plugins: [new CopyWebpackPlugin([{ from: "static" }])],
+  performance: {
+    maxEntrypointSize: 1000000,
+    maxAssetSize: 1000000
+  }
 };
