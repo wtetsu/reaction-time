@@ -38,7 +38,7 @@
             <h3>視覚(直近5件)</h3>
             <ol>
               <transition-group name="list" tag="p">
-              <li v-for="result in resultListColor" v-bind:key="result" >
+              <li v-for="result in resultListColor" v-bind:key="result.key" >
                 <p v-if="!result.isFlying">{{result.time}} ms ({{result.frame}}f)</p>
                 <p v-else>フライング!</p>
               </li>
@@ -49,7 +49,7 @@
             <h3>聴覚(直近5件)</h3>
             <ol>
               <transition-group name="list" tag="p">
-              <li v-for="result in resultListSound" v-bind:key="result" >
+              <li v-for="result in resultListSound" v-bind:key="result.key" >
                 <p v-if="!result.isFlying">{{result.time}} ms ({{result.frame}}f)</p>
                 <p v-else>フライング!</p>
               </li>

@@ -1,109 +1,109 @@
-const Vue = require('vue/dist/vue.common.js');
-const VueMaterial = require('vue-material');
-require('vue-material/dist/vue-material.css');
-require('./main.css');
+import Vue from "vue/dist/vue.common.js";
+import VueMaterial from "vue-material";
+import "vue-material/dist/vue-material.css";
+import "./main.css";
+
 Vue.use(VueMaterial);
 
-const res = require('./resources.js');
+const res = require("./resources.js");
 
-var se = new Audio(res.sound);
-var box = null;
+const se = new Audio(res.sound);
+let box = null;
 
-var data = {
+const data = {
   timeoutId: null,
   startTime: -1,
-  measurementType: 'color',
-  status: 'active',
+  measurementType: "color",
+  status: "active",
   isFinished: true,
   isActive: false,
   isError: false,
   isWaiting: false,
-  result: '...',
+  result: "...",
   resultListColor: [
-    { time: 9999, frame: 599940, isFlying: false },
-    { time: 9999, frame: 599940, isFlying: false },
-    { time: 9999, frame: 599940, isFlying: false },
-    { time: 9999, frame: 599940, isFlying: false },
-    { time: 9999, frame: 599940, isFlying: false }
+    { key: 0, time: 9999, frame: 599940, isFlying: false },
+    { key: 1, time: 9999, frame: 599940, isFlying: false },
+    { key: 2, time: 9999, frame: 599940, isFlying: false },
+    { key: 3, time: 9999, frame: 599940, isFlying: false },
+    { key: 4, time: 9999, frame: 599940, isFlying: false }
   ],
   resultListSound: [
-    { time: 9999, frame: 599940, isFlying: false },
-    { time: 9999, frame: 599940, isFlying: false },
-    { time: 9999, frame: 599940, isFlying: false },
-    { time: 9999, frame: 599940, isFlying: false },
-    { time: 9999, frame: 599940, isFlying: false }
+    { key: 0, time: 9999, frame: 599940, isFlying: false },
+    { key: 1, time: 9999, frame: 599940, isFlying: false },
+    { key: 2, time: 9999, frame: 599940, isFlying: false },
+    { key: 3, time: 9999, frame: 599940, isFlying: false },
+    { key: 4, time: 9999, frame: 599940, isFlying: false }
   ]
 };
 
-new Vue({
-  el: '#app',
+const vm = new Vue({
+  el: "#app",
   data: data,
   methods: {
-    retry: function() {
-      this.start();
+    retry: () => {
+      vm.start();
     },
-    start: function() {
-      var that = this;
-      that.isActive = false;
-      that.isFinished = false;
-      that.isError = false;
-      that.isWaiting = true;
-      that.startTime = -1;
-      switch (this.measurementType) {
-      case 'color':
-        if (box === null) {
-          box = document.getElementById('box');
-        }
-        box.className = '';
-        break;
-      case 'sound':
-        break;
+    start: () => {
+      data.isActive = false;
+      data.isFinished = false;
+      data.isError = false;
+      data.isWaiting = true;
+      data.startTime = -1;
+      switch (data.measurementType) {
+        case "color":
+          if (box === null) {
+            box = document.getElementById("box");
+          }
+          box.className = "";
+          break;
+        case "sound":
+          break;
       }
-      var wait = 2000 + ( Math.floor( Math.random() * 5000 ));
-      that.timeoutId = setTimeout(function(){
-        that.timeout();
+      const wait = 2000 + Math.floor(Math.random() * 5000);
+      data.timeoutId = setTimeout(() => {
+        vm.timeout();
       }, wait);
     },
-    timeout: function() {
-      if (!this.isWaiting) {
+    timeout: () => {
+      if (!data.isWaiting) {
         return;
       }
-      switch (this.measurementType) {
-      case 'color':
-        if (box === null) {
-          box = document.getElementById('box');
-        }
-        box.className = 'active';
-        break;
-      case 'sound':
-        se.play();
-        break;
+      switch (data.measurementType) {
+        case "color":
+          if (box === null) {
+            box = document.getElementById("box");
+          }
+          box.className = "active";
+          break;
+        case "sound":
+          se.play();
+          break;
       }
-      this.isActive = true;
-      this.isWaiting = false;
-      this.startTime = (new Date()).getTime();
+      data.isActive = true;
+      data.isWaiting = false;
+      data.startTime = new Date().getTime();
     },
-    showModal: function() {
-      this.$refs.dialog1.open();
+    showModal: () => {
+      vm.$refs.dialog1.open();
     },
-    openDialog: function(ref) {
-      this.$refs[ref].open();
+    openDialog: ref => {
+      vm.$refs[ref].open();
     },
-    closeDialog: function(ref) {
-      this.$refs[ref].close();
+    closeDialog: ref => {
+      vm.$refs[ref].close();
     }
   }
 });
 
-var addResult = function(newResult) {
-  var list;
+const addResult = newResult => {
+  let list;
   switch (data.measurementType) {
-  case 'color':
-    list = data.resultListColor;
-    break;
-  case 'sound':
-    list = data.resultListSound;
-    break;
+    case "color":
+      list = data.resultListColor;
+      break;
+    case "sound":
+      list = data.resultListSound;
+      break;
   }
   if (list) {
     list.unshift(newResult);
@@ -114,26 +114,29 @@ var addResult = function(newResult) {
 // Note:
 // Vue's event handling is slow for reaction time measurement,
 // so raw JavaScript event is needed here.
-var reacted = function() {
-  var finishTime = (new Date()).getTime();
+const reacted = () => {
+  const finishTime = new Date().getTime();
   if (data.isFinished) {
     return;
   }
-  var newResult;
+
+  let newResult;
   if (data.isActive) {
-    var time = (finishTime - data.startTime);
-    var frame = (60.0 * time / 1000);
-    var txt = time.toString() + ' ms (' + frame.toString() + 'f)';
+    const time = finishTime - data.startTime;
+    const frame = (60.0 * time) / 1000;
+    const txt = time.toString() + " ms (" + frame.toString() + "f)";
     data.result = txt;
 
     newResult = {
+      key: new Date().getTime(),
       time: time,
       frame: frame
     };
   } else {
     data.result = res.flying;
     newResult = {
-      isFlying:true
+      key: new Date().getTime(),
+      isFlying: true
     };
     data.isError = true;
   }
@@ -143,6 +146,4 @@ var reacted = function() {
   clearTimeout(data.timeoutId);
 };
 
-document.getElementById('btnReact').addEventListener('mousedown', function(){
-  reacted();
-});
+document.getElementById("btnReact").addEventListener("mousedown", reacted);
