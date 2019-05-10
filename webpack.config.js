@@ -1,5 +1,5 @@
-var webpack = require('webpack');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+var webpack = require("webpack");
+var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./src/main.js",
@@ -8,18 +8,26 @@ module.exports = {
     filename: "bundle.js"
   },
   module: {
-    loaders: [
-      {test: /\.css$/, loader: "style-loader!css-loader"}
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          }
+        ]
+      }
     ]
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
+      "process.env": {
         NODE_ENV: '"production"'
       }
     }),
-    new CopyWebpackPlugin([
-      { from: 'static' }
-    ])
+    new CopyWebpackPlugin([{ from: "static" }])
   ]
 };
